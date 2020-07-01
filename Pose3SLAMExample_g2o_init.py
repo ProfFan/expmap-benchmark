@@ -41,11 +41,18 @@ args = parser.parse_args()
 g2oFile = args.input
 
 is3D = True
-graph, initial = gtsam.readG2o(g2oFile, is3D)
+graph_in, initial = gtsam.readG2o(g2oFile, is3D)
+
+graph = gtsam.NonlinearFactorGraph()
+for i in range(graph_in.size()):
+    factor = gtsam.dynamic_cast_BetweenFactorPose3_NonlinearFactor(graph_in.at(i))
+    model = gtsam.noiseModel_Isotropic.Sigma(
+            6, 1.0)
+    graph.add(gtsam.BetweenFactorPose3(factor.keys().at(0), factor.keys().at(1), factor.measured(), model))
 
 # Add Prior on the first key
-priorModel = gtsam.noiseModel_Diagonal.Variances(vector6(1e-6, 1e-6, 1e-6,
-                                                         1e-4, 1e-4, 1e-4))
+priorModel = gtsam.noiseModel_Diagonal.Variances(vector6(1, 1, 1,
+                                                         1, 1, 1))
 
 print("Adding prior to g2o file ")
 firstKey = initial.keys().at(0)
@@ -55,7 +62,8 @@ print("Trying Chordal initialization")
 chordal_initialization = gtsam.InitializePose3.initialize(graph)
 
 params = gtsam.LevenbergMarquardtParams.CeresDefaults()
-params.setVerbosity("SUMMARY")  # this will show info about stopping conds
+params.setMaxIterations(100)
+params.setVerbosityLM("SUMMARY")  # this will show info about stopping conds
 optimizer = gtsam.LevenbergMarquardtOptimizer(graph, chordal_initialization, params)
 
 import os
