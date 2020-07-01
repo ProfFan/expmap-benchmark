@@ -1,0 +1,3 @@
+[submodule "shonan"]
+	path = shonan
+	url = git@github.com:dellaert/shonan.git
