@@ -12,13 +12,13 @@ fi
 
 pids=""
 echo "Experiment: $EXPERIMENT_NAME"
-for dataset in ./datasets/*; do
+for dataset in ./datasets/*.g2o; do
     dsname=$(basename "$dataset" .g2o)
     echo "Processing: $dsname"
     mkdir -p "logs/${EXPERIMENT_NAME}_$dsname"
     echo "Executing"
     #python3 ./Pose3SLAMExample_g2o.py -i $dataset -o "results/$EXPERIMENT_NAME-$dsname.csv" -l "logs" -e "$EXPERIMENT_NAME" &
-    $SWIFTFUSION_DIR/.build/release/Pose3SLAMG2O "$dataset" "results/$EXPERIMENT_NAME-$dsname.txt" -l "logs/${EXPERIMENT_NAME}_$dsname" --chordal &
+    $SWIFTFUSION_DIR/.build/release/Pose3SLAMG2O "$dataset" "results/$EXPERIMENT_NAME-$dsname.txt" -l "logs/${EXPERIMENT_NAME}_$dsname" &
     pids="$pids $!"
 done
 

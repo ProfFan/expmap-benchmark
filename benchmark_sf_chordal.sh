@@ -12,7 +12,7 @@ fi
 
 pids=""
 echo "Experiment: $EXPERIMENT_NAME"
-for dataset in ./datasets/*; do
+for dataset in ./datasets/*.g2o; do
     dsname=$(basename "$dataset" .g2o)
     echo "Processing: $dsname"
     mkdir -p "logs/${EXPERIMENT_NAME}_$dsname"
