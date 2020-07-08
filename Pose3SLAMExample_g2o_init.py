@@ -63,6 +63,7 @@ chordal_initialization = gtsam.InitializePose3.initialize(graph)
 
 params = gtsam.LevenbergMarquardtParams.CeresDefaults()
 params.setMaxIterations(100)
+params.setRelativeErrorTol(1e-4)
 params.setVerbosityLM("SUMMARY")  # this will show info about stopping conds
 optimizer = gtsam.LevenbergMarquardtOptimizer(graph, chordal_initialization, params)
 
