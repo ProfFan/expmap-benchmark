@@ -65,6 +65,12 @@ params = gtsam.LevenbergMarquardtParams.CeresDefaults()
 params.setMaxIterations(100)
 params.setRelativeErrorTol(1e-4)
 params.setVerbosityLM("SUMMARY")  # this will show info about stopping conds
+# params.setLinearSolverType("ITERATIVE")
+# cgparams = gtsam.PCGSolverParameters()
+# cgparams.setPreconditionerParams(
+#     gtsam.DummyPreconditionerParameters()
+# )
+# params.setIterativeParams(cgparams)
 optimizer = gtsam.LevenbergMarquardtOptimizer(graph, chordal_initialization, params)
 
 import os

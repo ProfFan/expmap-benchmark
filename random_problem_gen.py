@@ -14,11 +14,13 @@ import gtsam
 
 parser = argparse.ArgumentParser(
     description="A generator for random Pose3 problems")
+parser.add_argument('-i', '--input', help="source g2o", required=True)
 parser.add_argument('-o', '--output',
-                    help="the path to the output file with optimized graph", required=True)
+                    help="the path to the output file with randomized init", required=True)
 args = parser.parse_args()
 
 g2oFile = args.output
+inputFile = args.input
 
 import sys, os
 sys.path.append(os.path.join(sys.path[0],'shonan', 'python'))
@@ -29,7 +31,7 @@ from sfm_problem import SFMProblem
 # problem = RandomPoseSLAMProblem(nr_poses=1000, nr_measurements=1000, radius=10.0, sigma=0.8, model_sigma=1.0)
 problem = lambda: None
 
-input_graph, input_poses = gtsam.readG2o("datasets/sphere_bignoise_vertex3.g2o", True)
+input_graph, input_poses = gtsam.readG2o(inputFile, True)
 problem._poses = input_poses
 problem._graph = input_graph
 

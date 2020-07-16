@@ -61,6 +61,10 @@ graph.add(gtsam.PriorFactorPose3(firstKey, gtsam.Pose3(), priorModel))
 params = gtsam.LevenbergMarquardtParams.CeresDefaults()
 params.setMaxIterations(100)
 params.setVerbosityLM("SUMMARY")  # this will show info about stopping conds
+# params.setLinearSolverType("ITERATIVE")
+# cgparams = gtsam.PCGSolverParameters()
+# cgparams.setPreconditionerParams(gtsam.DummyPreconditionerParameters())
+# params.setIterativeParams(cgparams)
 optimizer = gtsam.LevenbergMarquardtOptimizer(graph, initial, params)
 
 import os
