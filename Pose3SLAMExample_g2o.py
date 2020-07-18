@@ -60,7 +60,7 @@ graph.add(gtsam.PriorFactorPose3(firstKey, gtsam.Pose3(), priorModel))
 
 params = gtsam.LevenbergMarquardtParams.CeresDefaults()
 params.setMaxIterations(100)
-params.setRelativeErrorTol(1e-7)
+params.setRelativeErrorTol(1e-10)
 params.setVerbosityLM("SUMMARY")  # this will show info about stopping conds
 # params.setLinearSolverType("ITERATIVE")
 # cgparams = gtsam.PCGSolverParameters()
