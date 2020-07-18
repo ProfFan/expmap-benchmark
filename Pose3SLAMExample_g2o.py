@@ -1,4 +1,4 @@
-#!/usr/local/bin/python3
+#!/usr/bin/env python3
 """
  * @file Pose3SLAMExample_initializePose3.cpp
  * @brief A 3D Pose SLAM example that reads input from g2o, and initializes the
@@ -60,6 +60,7 @@ graph.add(gtsam.PriorFactorPose3(firstKey, gtsam.Pose3(), priorModel))
 
 params = gtsam.LevenbergMarquardtParams.CeresDefaults()
 params.setMaxIterations(100)
+params.setRelativeErrorTol(1e-7)
 params.setVerbosityLM("SUMMARY")  # this will show info about stopping conds
 # params.setLinearSolverType("ITERATIVE")
 # cgparams = gtsam.PCGSolverParameters()

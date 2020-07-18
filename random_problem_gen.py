@@ -1,4 +1,4 @@
-#!/usr/local/bin/python3
+#!/usr/bin/env python3
 """
  * Generate random Pose3SLAM problem
 """
@@ -46,9 +46,11 @@ graph = gtsam.NonlinearFactorGraph()
 keys = problem._poses.keys()
 import utils
 for i in range(keys.size()):
-    rand = utils.random_omega(100.0)
-    randr = utils.random_omega(100.0)
-    poses.insert(keys.at(i), gtsam.Pose3(gtsam.Rot3.RzRyRx(randr[0], randr[1],randr[2]), gtsam.Point3(rand[0], rand[1], rand[2])))
+    rand = utils.random_omega(1)
+    randr = utils.random_omega(1)
+    original: gtsam.Pose3 = input_poses.atPose3(keys.at(i))
+    # poses.insert(keys.at(i), gtsam.Pose3(gtsam.Rot3.RzRyRx(randr[0], randr[1],randr[2]), gtsam.Point3(rand[0], rand[1], rand[2])))
+    poses.insert(keys.at(i), original.retract(np.concatenate([rand, randr])))
 
 for i in range(problem._graph.size()):
     factor = gtsam.dynamic_cast_BetweenFactorPose3_NonlinearFactor(problem._graph.at(i))

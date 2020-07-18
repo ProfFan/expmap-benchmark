@@ -1,4 +1,4 @@
-#!/usr/local/bin/python3
+#!/usr/bin/env python3
 """
  * @file Pose3SLAMExample_initializePose3.cpp
  * @brief A 3D Pose SLAM example that reads input from g2o, and initializes the
