@@ -63,7 +63,7 @@ chordal_initialization = gtsam.InitializePose3.initialize(graph)
 
 params = gtsam.LevenbergMarquardtParams.CeresDefaults()
 params.setMaxIterations(100)
-params.setRelativeErrorTol(1e-4)
+params.setRelativeErrorTol(1e-8)
 params.setVerbosityLM("SUMMARY")  # this will show info about stopping conds
 # params.setLinearSolverType("ITERATIVE")
 # cgparams = gtsam.PCGSolverParameters()
@@ -99,8 +99,8 @@ if args.output is None:
 else:
     outputFile = args.output
     print("Writing results to file: ", outputFile)
-    graphNoKernel, _ = gtsam.readG2o(g2oFile, is3D)
-    gtsam.writeG2o(graphNoKernel, result, outputFile)
+    # graphNoKernel, _ = gtsam.readG2o(g2oFile, is3D)
+    gtsam.writeG2o(graph, result, outputFile)
     print ("Done!")
 
 if args.plot:
